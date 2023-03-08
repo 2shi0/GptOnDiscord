@@ -30,15 +30,19 @@ async def on_message(message):
     if message.author.bot:
         return
 
+    #DMに返信
+    if isinstance(message.channel, discord.DMChannel):
+        print('DM was received')
+        await message.channel.typing()
+        answer=ai.generate_gpt_response(message.content)
+        await message.channel.send(answer)
+        return
+
     #このBotがメンションされたら反応
     if message.content.startswith('<@1081838674154635316>'):
+        print('Mention was received')
         await message.channel.typing()
         question=message.content[22:]
-
-        #メンションの内容がなかったときの対応
-        if question=='':
-          await message.channel.send('？ｗ')
-          return
 
         answer=ai.generate_gpt_response(question)
         await message.channel.send(answer)

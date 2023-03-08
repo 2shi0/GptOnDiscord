@@ -12,32 +12,26 @@ except FileNotFoundError:
 
 def generate_gpt_response(question):
   try:
-    f=open('prompt.txt','r')
-    prompt=f.read()
-    f.close()
-  except FileNotFoundError:
-    prompt=''
-
-  try:
     res = openai.ChatCompletion.create(
        model="gpt-3.5-turbo",
          messages=[
-             {
-                 "role": "system",
-                 "content": prompt
-             },
              {
                  "role": "user",
                  "content": question
              },
          ],
     )
-    print("-----------------")
+    answer=res["choices"][0]["message"]["content"]
     #print(res["usage"])
-    print('Injected prompt:')
-    print(prompt)
-    #print(res)
-    return res["choices"][0]["message"]["content"]
+    print(res)
+    print('\nQuestion:')
+    print(question)
+    print('\nAnswer:')
+    print(answer)
+    print('\nSpending Token:')
+    print(res["usage"])
+
+    return answer
 
   except:
     return "予算を使い切ったため、gpt-3.5-turboからレスポンスが帰ってきませんでした。<@830791139179102239> に問い合わせてください。"
