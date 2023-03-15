@@ -1,10 +1,9 @@
 import discord
-
-import settings
+import os
 import ai
 
 #アクセストークンを読み込み
-token=settings.discord_token
+token=os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
 intents.message_content = True

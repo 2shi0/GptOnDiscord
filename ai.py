@@ -1,10 +1,8 @@
-import os
 import openai
-
-import settings
+import os
 
 # アクセスキーを読み込み
-openai.api_key = settings.openai_key
+openai.api_key = os.getenv('OPENAI_KEY')
 
 def generate_gpt_response(question):
     try:
