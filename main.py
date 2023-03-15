@@ -1,14 +1,10 @@
 import discord
+
+import settings
 import ai
 
 #アクセストークンを読み込み
-try:
-  f=open('doscord_token.key','r')
-  token=f.read()
-  f.close()
-except FileNotFoundError:
-  print('token.key was not exist.')
-  exit()
+token=settings.discord_token
 
 intents = discord.Intents.default()
 intents.message_content = True
