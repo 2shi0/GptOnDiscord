@@ -10,4 +10,4 @@ DISCORD_TOKEN=''
 OPENAI_TOKEN=''
 DEEPL_TOKEN=''
 ```
-main.pyを実行すれば動きます（多分）
+各種トークンを入力してからmain.pyを実行すれば動きます（多分）
