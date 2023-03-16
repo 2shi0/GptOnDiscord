@@ -1,7 +1,8 @@
 import os
 import deepl
+import settings
 
-translator = deepl.Translator(os.getenv('DEEPL_TOKEN'))
+translator = deepl.Translator(settings.deepl_token)
 
 def translate_to_japanese(str):
     result = translator.translate_text(str, target_lang="JA")

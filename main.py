@@ -1,13 +1,9 @@
 import discord
-import os
 import gpt
-
-#アクセストークンを読み込み
-token=os.getenv('DISCORD_TOKEN')
+import settings
 
 intents = discord.Intents.default()
 intents.message_content = True
-
 client = discord.Client(intents=intents)
 
 @client.event
@@ -42,4 +38,4 @@ async def on_message(message):
         answer=gpt.generate_gpt_response(question)
         await message.channel.send(answer)
 
-client.run(token)
+client.run(settings.discord_token)

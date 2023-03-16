@@ -1,9 +1,10 @@
 import openai
 import os
 import trans
+import settings
 
 # アクセスキーを読み込み
-openai.api_key = os.getenv('OPENAI_TOKEN')
+openai.api_key = settings.openai_token
 
 def generate_gpt_response(question):
     try:
