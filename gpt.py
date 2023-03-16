@@ -6,6 +6,7 @@ import settings
 # アクセスキーを読み込み
 openai.api_key = settings.openai_token
 
+
 def generate_gpt_response(question):
     try:
         f = open('prompt.txt', 'r')
@@ -16,7 +17,7 @@ def generate_gpt_response(question):
 
     try:
         # 入力文を英語に翻訳
-        translated_question=str(trans.translate_to_english(question))
+        translated_question = str(trans.translate_to_english(question))
 
         res = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -33,9 +34,9 @@ def generate_gpt_response(question):
         )
         answer = res["choices"][0]["message"]["content"]
 
-        translated_answer=str(trans.translate_to_japanese(answer))
-        
-        #print(res)
+        translated_answer = str(trans.translate_code_to_japanese(answer))
+
+        # print(res)
         print('Question           : '+question)
         print('Translated Question: '+translated_question)
         print('Translated Answer  : '+translated_answer)
