@@ -1,6 +1,6 @@
 import discord
 import os
-import ai
+import gpt
 
 #アクセストークンを読み込み
 token=os.getenv('DISCORD_TOKEN')
@@ -29,7 +29,7 @@ async def on_message(message):
     if isinstance(message.channel, discord.DMChannel):
         print('DM was received')
         await message.channel.typing()
-        answer=ai.generate_gpt_response(message.content)
+        answer=gpt.generate_gpt_response(message.content)
         await message.channel.send(answer)
         return
 
@@ -39,7 +39,7 @@ async def on_message(message):
         await message.channel.typing()
         question=message.content[23:]
 
-        answer=ai.generate_gpt_response(question)
+        answer=gpt.generate_gpt_response(question)
         await message.channel.send(answer)
 
 client.run(token)
