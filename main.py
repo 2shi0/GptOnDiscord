@@ -1,6 +1,7 @@
 import discord
 import gpt
 import settings
+import asyncio
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -25,17 +26,14 @@ async def on_message(message):
     if isinstance(message.channel, discord.DMChannel):
         print('DM was received')
         await message.channel.typing()
-        answer=gpt.generate_gpt_response(message.content)
-        await message.channel.send(answer)
+        await message.channel.send(gpt.generate_gpt_response(message.content))
         return
 
     #このBotがメンションされたら反応
     if message.content.startswith('<@1081838674154635316>'):
         print('Mention was received')
         await message.channel.typing()
-        question=message.content[23:]
-
-        answer=gpt.generate_gpt_response(question)
-        await message.channel.send(answer)
+        await message.channel.send(gpt.generate_gpt_response(message.content[23:]))
+        return
 
 client.run(settings.discord_token)
