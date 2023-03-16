@@ -1,11 +1,10 @@
 import openai
-import os
 import trans
 import settings
+import traceback
 
 # アクセスキーを読み込み
 openai.api_key = settings.openai_token
-
 
 def generate_gpt_response(question):
     try:
@@ -35,18 +34,22 @@ def generate_gpt_response(question):
         answer = res["choices"][0]["message"]["content"]
 
         translated_answer = str(trans.translate_code_to_japanese(answer))
+        print(translated_answer)
 
-        # print(res)
+        """
+        print(res)
         print('Question           : '+question)
         print('Translated Question: '+translated_question)
         print('Translated Answer  : '+translated_answer)
         print('Answer             : '+answer)
         print('Spending Token     : '+str(res["usage"]["total_tokens"]))
+        """
 
         return translated_answer
 
-    except:
-        return 'にゃーん（エラー）'
+    except Exception as e:
+        t = list(traceback.TracebackException.from_exception(e).format())
+        return t[-1]
 
 
 # 使い方

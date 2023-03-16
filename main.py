@@ -1,8 +1,7 @@
 import discord
 import gpt
-import trans
 import settings
-import asyncio
+import time
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -27,8 +26,10 @@ async def on_message(message):
     if isinstance(message.channel, discord.DMChannel):
         print('DM was received')
         await message.channel.typing()
-        result = gpt.generate_gpt_response(message.content)
+        result = gpt.generate_gpt_response(str(message.content))
         await message.channel.send(result)
         return
+    
+
 
 client.run(settings.discord_token)
