@@ -27,13 +27,11 @@ def generate_gpt_response(question):
             ],
         )
         answer = res["choices"][0]["message"]["content"]
-        print(res)
-        print('\nQuestion:')
-        print(question)
-        print('\nAnswer:')
-        print(answer)
-        print('\nSpending Token:')
-        print(res["usage"])
+        
+        #print(res)
+        print('Question      : '+question)
+        print('Answer        : '+answer)
+        print('Spending Token: '+str(res["usage"]["total_tokens"]))
 
         return answer
 

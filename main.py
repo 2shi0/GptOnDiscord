@@ -37,7 +37,7 @@ async def on_message(message):
     if message.content.startswith('<@1081838674154635316>'):
         print('Mention was received')
         await message.channel.typing()
-        question=message.content[22:]
+        question=message.content[23:]
 
         answer=ai.generate_gpt_response(question)
         await message.channel.send(answer)
