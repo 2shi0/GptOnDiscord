@@ -18,6 +18,7 @@ def generate_gpt_response(question):
         # 入力文を英語に翻訳
         translated_question = str(trans.translate_to_english(question))
 
+        # gpt-3.5に投げる
         res = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -29,10 +30,15 @@ def generate_gpt_response(question):
                     "role": "user",
                     "content": translated_question
                 },
+                {
+                    "role": "system",
+                    "content": "Answer:"
+                },
             ],
         )
         answer = res["choices"][0]["message"]["content"]
 
+        # 生成文を日本語に翻訳
         translated_answer = str(trans.translate_code_to_japanese(answer))
         print(translated_answer)
 
@@ -45,7 +51,10 @@ def generate_gpt_response(question):
         print('Spending Token     : '+str(res["usage"]["total_tokens"]))
         """
 
-        return translated_answer
+        # 1つ2000字のリストに変換
+        split_translated_answer = [translated_answer[x:x+2000] for x in range(0, len(translated_answer), 2000)]
+
+        return split_translated_answer
 
     except Exception as e:
         t = list(traceback.TracebackException.from_exception(e).format())
